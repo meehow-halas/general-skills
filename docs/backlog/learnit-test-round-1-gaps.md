@@ -1,48 +1,50 @@
 ---
-title: "_learnit: niejasności z 1. rundy testów"
+title: "_learnit: ambiguities from test round 1"
 type: fix
 date: 2026-11-21
-source: weryfikacja B1–B7 skilla _learnit (wszystkie PASS, uwagi testerów)
+source: verification B1–B7 of the _learnit skill (all PASS, testers' notes)
 tags: [learnit]
 ---
 
-## Kontekst
-Wszystkie kryteria A–C przeszły. Testerzy zgłosili niejasności — rozstrzygali je rozsądnie, ale różnie.
+> Note: written before the v0.5.0 rename; today `krok` is `step`, "Po" is `After`, "niezweryfikowane" is `unverified`.
 
-## Problem / cel
-Ujednolicić zachowanie w miejscach, gdzie testerzy zgadywali. Priorytet wg liczby zgłoszeń.
+## Context
+All criteria A–C passed. Testers reported ambiguities; they resolved them sensibly but differently.
 
-## Proponowane rozwiązanie
-1. **Interwały powtórek** (B3, B4, B5): jawna reguła kroku — pierwsze `ok` → +1 dzień; każde kolejne `ok` → następny krok 3/7/21; błąd → reset do 1 dnia, status `shaky`.
-2. **Źródła** (B2): tytuły, linki, wydania sprawdzaj w sieci albo oznacz „niezweryfikowane”.
-3. **Support — wyzwalacz** (B3, B4): zaproponuj support (nie uruchamiaj bez pytania); próg: 2. nieudana próba pojęcia albo etap `review`. Nazwa pliku: numer etapu z trudnością.
-4. **`unknown` vs `shaky`** (B3): `unknown` = brak poprawnych elementów; `shaky` = częściowo poprawnie.
-5. **Wynik diagnozy** (B1, B2): zapisuj w `knowledge.md` z dopiskiem „diagnoza”, bez terminu powtórki. Pytania diagnostyczne otwarte, bez opcji.
-6. **Pole „Po”** (B2, B6): dodać do szablonu etapu; przy równym „Po” kolejność wg numeru.
-7. **Zakres** (B1): akceptacja zakresu jednym pytaniem przed planem.
-8. **`profile.md`** (B1, B2): tworzyć przy pierwszym temacie z preferencjami z rozmowy startowej.
-9. **Katalogi** (B2): `support/` i `exercises/` tworzyć dopiero przy pierwszym użyciu.
-10. **Powtórki w check** (B3, B4): zaproponować też na starcie check; pominięcie nie zmienia terminu.
-11. **Status** (B7): może kończyć się jednym pytaniem o następny krok; niespójność danych zgłoś, nie poprawiaj.
+## Problem / goal
+Unify behaviour where testers guessed. Priority by number of reports.
 
-Z powtórki B3–B5 (2026-11-21):
-12. **Awans po supporcie** (B4r): `ok` tuż po błędzie tego samego dnia daje krok 2 (3 dni) — rozważyć, by `ok` w tej samej sesji co błąd dawało tylko krok 1.
-13. **Wybór powtórek** (B5r): przy > 3 zaległych — które wybrać (sugestia: `shaky` + najstarsze); pojęcie z bieżącego sprawdzianu nie jest liczone jako powtórka.
-14. **„Nie musisz pytać”** (B3r): pytać mimo to czy traktować jak pominięcie.
-15. **Etap `review` w INDEX** (B3r): czy pokazywać status etapu w kolumnie „etap”.
-16. **Spójność danych** (B5r, B7): etap `done` przy kluczowym pojęciu, które spadło do `shaky` — zgłosić czy zmienić status.
+## Proposed solution
+1. **Review intervals** (B3, B4, B5): an explicit step rule: first `ok` → +1 day; each next `ok` → next step 3/7/21; error → reset to 1 day, status `shaky`.
+2. **Sources** (B2): verify titles, links, editions on the web or mark "unverified".
+3. **Support trigger** (B3, B4): offer support (don't start without asking); threshold: 2nd failed attempt at a concept or a stage in `review`. File name: the number of the stage with the difficulty.
+4. **`unknown` vs `shaky`** (B3): `unknown` = no correct elements; `shaky` = partly correct.
+5. **Diagnosis result** (B1, B2): record in `knowledge.md` marked "diagnostic", no review date. Diagnostic questions open, without options.
+6. **"After" field** (B2, B6): add to the stage template; for equal "After", order by number.
+7. **Scope** (B1): accept the scope with one question before the plan.
+8. **`profile.md`** (B1, B2): create at the first topic with preferences from the start conversation.
+9. **Directories** (B2): create `support/` and `exercises/` only on first use.
+10. **Reviews in check** (B3, B4): offer also at the start of check; skipping doesn't change the date.
+11. **Status** (B7): may end with one question about the next step; report inconsistent data, don't fix it.
 
-## Alternatywy odrzucone
-- Pełny algorytm SM-2 — za ciężki na start.
+From the B3–B5 repeat (2026-11-21):
+12. **Promotion after support** (B4r): `ok` right after an error the same day gives step 2 (3 days); consider `ok` in the same session as an error giving only step 1.
+13. **Choice of reviews** (B5r): with > 3 overdue, which to pick (suggestion: `shaky` + oldest); a concept from the current check doesn't count as a review.
+14. **"You don't have to ask"** (B3r): ask anyway or treat as a skip.
+15. **`review` stage in INDEX** (B3r): whether to show the stage status in the "stage" column.
+16. **Data consistency** (B5r, B7): a stage `done` with a key concept that dropped to `shaky`: report it or change the status.
 
-## Kryteria akceptacji
-- SKILL.md ≤ 140 linii po zmianach.
-- Powtórzone B3–B5 dają te same interwały u różnych testerów.
+## Rejected alternatives
+- Full SM-2 algorithm: too heavy to start.
 
-## Powiązane pliki
-- `skills/_learnit/SKILL.md`
+## Acceptance criteria
+- SKILL.md ≤ 140 lines after the changes.
+- Repeated B3–B5 give the same intervals across testers.
+
+## Related files
+- `skills/learnit/SKILL.md`
 - `docs/learnit-acceptance-criteria.md`
 
-## Historia
-- 2026-11-21 — utworzenie
-- 2026-11-21 — pkt 1–5 wdrożone w v0.1.1; B3–B5 powtórzone: interwały zgodne z oczekiwanymi u 3 testerów; dopisane pkt 12–16
+## History
+- 2026-11-21: created
+- 2026-11-21: items 1–5 implemented in v0.1.1; B3–B5 repeated: intervals as expected across 3 testers; added items 12–16

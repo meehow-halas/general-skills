@@ -1,0 +1,89 @@
+{
+  "skill_name": "_mapit",
+  "evals": [
+    {
+      "id": 1,
+      "name": "new-code-plan",
+      "prompt": "Zaplanuj dodanie trybu read-only do CLI w tym repo.",
+      "expected_output": "Czyta CLAUDE.md i kod, zadaje jedno pytanie Q1 przez AskUserQuestion z rekomendacją pierwszą, po pierwszej odpowiedzi tworzy docs/plans/<slug>/README.md z Planning: draft.",
+      "files": [],
+      "expectations": [
+        "Zadaje dokładnie jedno pytanie w wiadomości",
+        "Rekomendowana opcja jest pierwsza i oznaczona (Recommended) z powodem",
+        "Pytanie ma id Q1",
+        "README.md powstaje w <korzeń repo>/docs/plans/<slug>/ z Planning: draft po pierwszej odpowiedzi",
+        "Nie rozpoczyna implementacji"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "non-code-plan",
+      "prompt": "Rozpisz mi plan przeprowadzki do Krakowa w marcu.",
+      "expected_output": "Plan poza kodem: brak czytania kodu, etapy z wykonawcą user, kryteria to sprawdzalne fakty, brak plików .brief.md dla etapów user.",
+      "files": [],
+      "expectations": [
+        "Nie traktuje zadania jako inżynierii oprogramowania (brak testów jako kryteriów)",
+        "Etapy mają wykonawcę user lub mixed",
+        "Brak NN-*.brief.md dla etapów user",
+        "Kryteria akceptacji są obserwowalnymi faktami",
+        "Poza repo pyta o lokalizację, rekomendując ./plans/<slug>/",
+        "Rozpiska merytoryczna jest w sekcji Plan szczegółowy specu etapu"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "seed-from-backlog",
+      "prompt": "Zrób plan z odłożonego pomysłu o cache dla zapytań raportowych.",
+      "expected_output": "Znajduje docs/backlog/cache-for-report-queries.md, przenosi otwarte pytania do kolejki Q<n>, wpisuje Źródło w README, proponuje wpis w Historii backlogu za zgodą.",
+      "files": [
+        "docs/backlog/cache-for-report-queries.md"
+      ],
+      "expectations": [
+        "Odnajduje plik backlogu po opisie",
+        "Otwarte pytania z backlogu stają się pytaniami Q<n> (pierwsze zadane jako pierwsze)",
+        "README planu ma pole Źródło wskazujące plik backlogu",
+        "Nie edytuje pliku backlogu bez zgody"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "resume-draft",
+      "prompt": "Wróćmy do planu tracker-read-only-mode.",
+      "expected_output": "Czyta README z Planning: draft, zadaje pierwsze otwarte pytanie, nie powtarza rozstrzygniętych.",
+      "files": [
+        "docs/plans/tracker-read-only-mode/README.md"
+      ],
+      "expectations": [
+        "Zadaje pierwsze pytanie z sekcji Otwarte pytania",
+        "Nie pyta ponownie o decyzje zapisane w sekcji Decyzje",
+        "Zachowuje numerację Q<n>"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "autonomous",
+      "prompt": "Zaplanuj samodzielnie, bez pytań, migrację logowania z console.log na pino.",
+      "expected_output": "Nie zadaje pytań, rozstrzyga wg rekomendacji, zapisuje decyzje oznaczone autonomicznie, kończy z Planning: complete.",
+      "files": [],
+      "expectations": [
+        "Nie używa AskUserQuestion",
+        "Decyzje w README oznaczone jako autonomiczne",
+        "Planning: complete na końcu"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "query-status",
+      "prompt": "Czy mogę już zacząć następny etap planu?",
+      "expected_output": "Tylko odczyt README; odpowiedź tak/nie wg reguły bramki, cytuje statusy dosłownie.",
+      "files": [
+        "docs/plans/tracker-read-only-mode/README.md"
+      ],
+      "expectations": [
+        "Nie edytuje plików ani nie uruchamia testów/agentów",
+        "Odpowiada tak tylko gdy Planning: complete i poprzedni etap done",
+        "Cytuje status dosłownie z README"
+      ]
+    }
+  ]
+}

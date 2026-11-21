@@ -1,0 +1,12 @@
+{
+  "name": "general-skills",
+  "version": "0.1.0",
+  "description": "General skills for AI agents (Claude Code, Cursor, Codex, OpenCode): learnit, mapit, parkit",
+  "keywords": ["skills", "claude-code", "cursor", "codex", "opencode", "ai-agent"],
+  "author": "Michał Hałas",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "general-skills": "bin/install.mjs" },
+  "files": ["bin", "skills"],
+  "engines": { "node": ">=18" }
+}

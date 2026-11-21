@@ -1,0 +1,79 @@
+{
+  "skill_name": "_parkit",
+  "evals": [
+    {
+      "id": 1,
+      "name": "park-from-conversation",
+      "prompt": "(Po rozmowie o wolnym dashboardzie raportów i pomyśle cache z TTL 5 min) Odłóż to na później.",
+      "expected_output": "Pokazuje podgląd w tabeli, po zatwierdzeniu tworzy jeden plik w <korzeń repo>/docs/backlog/ w zadanym formacie.",
+      "files": [],
+      "expectations": [
+        "Przed zapisem pokazuje tabelę podglądu z katalogiem docelowym i czeka na zatwierdzenie",
+        "Plik powstaje w <korzeń repo>/docs/backlog/, nie w bieżącym podkatalogu",
+        "Nazwa pliku: angielski, kebab-case, max 50 znaków",
+        "Frontmatter ma title, type (optimization), date z kontekstu lub date +%F, source",
+        "Treść tylko z rozmowy; sekcje bez pokrycia pominięte; Historia ostatnia z wpisem utworzenie",
+        "Brak operacji git"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "nothing-to-park",
+      "prompt": "(Świeża rozmowa bez ustaleń) /_parkit",
+      "expected_output": "Mówi, że nie ma czego odłożyć; nie tworzy plików ani katalogów.",
+      "files": [],
+      "expectations": [
+        "Informuje, że nic do odłożenia",
+        "Nie tworzy pliku ani katalogu"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "dedup",
+      "prompt": "(Po rozmowie o cache dla raportów, Redis jako decyzja) Odłóż to.",
+      "expected_output": "Wykrywa istniejący docs/backlog/cache-for-report-queries.md, pyta: dopisać czy nowy plik; dopisanie wpina treść w sekcje i dodaje wpis w Historia.",
+      "files": ["docs/backlog/cache-for-report-queries.md"],
+      "expectations": [
+        "Przed podglądem wskazuje podobny istniejący plik i pyta: dopisać czy nowy",
+        "Po wyborze dopisania nie powstaje nowy plik",
+        "Dopisana treść bez powtórzeń, w pasujących sekcjach",
+        "Nowa linia w Historia z datą"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "sanitization",
+      "prompt": "(Rozmowa zawiera nazwisko klienta, e-mail, telefon, token API i wewnętrzny host) Odłóż pomysł integracji.",
+      "expected_output": "Plik bez danych wrażliwych; podgląd zaznacza, co zanonimizowano.",
+      "files": [],
+      "expectations": [
+        "Grep nazwiska, e-maila, telefonu, tokenu i hosta po zapisanym pliku daje 0 trafień",
+        "Dotyczy też nazwy pliku, source i tags",
+        "Podgląd mówi, co zanonimizowano"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "review-and-return",
+      "prompt": "Co mam odłożone? A potem: wróćmy do tego o cache.",
+      "expected_output": "Tabela pozycji, najnowsze na górze, pozycja z wpisem przeniesienia oznaczona → plan <slug>; powrót streszcza plik bez jego zmiany.",
+      "files": ["docs/backlog/cache-for-report-queries.md", "docs/backlog/export-to-csv.md"],
+      "expectations": [
+        "Tabela: data, type, tytuł, plik; najnowsze na górze",
+        "Pozycja z „przeniesione do planu <slug>” w Historia ma dopisek → plan <slug>",
+        "Powrót: krótkie streszczenie, plik niezmieniony (porównanie sumy kontrolnej)"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "review-empty",
+      "prompt": "Pokaż odłożone pomysły.",
+      "expected_output": "Brak docs/backlog/ → „nic nie odłożono”, nic nie tworzy.",
+      "files": [],
+      "expectations": [
+        "Odpowiada, że nic nie odłożono",
+        "Katalog docs/backlog/ nadal nie istnieje"
+      ]
+    }
+  ]
+}

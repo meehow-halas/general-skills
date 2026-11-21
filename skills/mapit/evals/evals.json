@@ -4,85 +4,85 @@
     {
       "id": 1,
       "name": "new-code-plan",
-      "prompt": "Zaplanuj dodanie trybu read-only do CLI w tym repo.",
-      "expected_output": "Czyta CLAUDE.md i kod, zadaje jedno pytanie Q1 przez AskUserQuestion z rekomendacją pierwszą, po pierwszej odpowiedzi tworzy docs/plans/<slug>/README.md z Planning: draft.",
+      "prompt": "Plan adding a read-only mode to the CLI in this repo.",
+      "expected_output": "Reads CLAUDE.md and the code, asks one question Q1 via AskUserQuestion with the recommendation first, and after the first answer creates docs/plans/<slug>/README.md with Planning: draft.",
       "files": [],
       "expectations": [
-        "Zadaje dokładnie jedno pytanie w wiadomości",
-        "Rekomendowana opcja jest pierwsza i oznaczona (Recommended) z powodem",
-        "Pytanie ma id Q1",
-        "README.md powstaje w <korzeń repo>/docs/plans/<slug>/ z Planning: draft po pierwszej odpowiedzi",
-        "Nie rozpoczyna implementacji"
+        "Asks exactly one question per message",
+        "The recommended option is first and marked (Recommended) with a reason",
+        "The question has id Q1",
+        "README.md is created in <repo root>/docs/plans/<slug>/ with Planning: draft after the first answer",
+        "Does not start implementation"
       ]
     },
     {
       "id": 2,
       "name": "non-code-plan",
-      "prompt": "Rozpisz mi plan przeprowadzki do Krakowa w marcu.",
-      "expected_output": "Plan poza kodem: brak czytania kodu, etapy z wykonawcą user, kryteria to sprawdzalne fakty, brak plików .brief.md dla etapów user.",
+      "prompt": "Lay out a plan for my move to Kraków in March.",
+      "expected_output": "A non-code plan: no code reading, stages with executor user, criteria are checkable facts, no .brief.md files for user stages.",
       "files": [],
       "expectations": [
-        "Nie traktuje zadania jako inżynierii oprogramowania (brak testów jako kryteriów)",
-        "Etapy mają wykonawcę user lub mixed",
-        "Brak NN-*.brief.md dla etapów user",
-        "Kryteria akceptacji są obserwowalnymi faktami",
-        "Poza repo pyta o lokalizację, rekomendując ./plans/<slug>/",
-        "Rozpiska merytoryczna jest w sekcji Plan szczegółowy specu etapu"
+        "Does not treat the task as software engineering (no tests as criteria)",
+        "Stages have executor user or mixed",
+        "No NN-*.brief.md for user stages",
+        "Acceptance criteria are observable facts",
+        "Outside a repo asks about location, recommending ./plans/<slug>/",
+        "The substantive breakdown is in the Detailed plan section of the stage spec"
       ]
     },
     {
       "id": 3,
       "name": "seed-from-backlog",
-      "prompt": "Zrób plan z odłożonego pomysłu o cache dla zapytań raportowych.",
-      "expected_output": "Znajduje docs/backlog/cache-for-report-queries.md, przenosi otwarte pytania do kolejki Q<n>, wpisuje Źródło w README, proponuje wpis w Historii backlogu za zgodą.",
+      "prompt": "Make a plan from the parked idea about caching report queries.",
+      "expected_output": "Finds docs/backlog/cache-for-report-queries.md, moves open questions into the Q<n> queue, writes Source in the README, offers a History entry in the backlog with consent.",
       "files": [
         "docs/backlog/cache-for-report-queries.md"
       ],
       "expectations": [
-        "Odnajduje plik backlogu po opisie",
-        "Otwarte pytania z backlogu stają się pytaniami Q<n> (pierwsze zadane jako pierwsze)",
-        "README planu ma pole Źródło wskazujące plik backlogu",
-        "Nie edytuje pliku backlogu bez zgody"
+        "Finds the backlog file by description",
+        "Open questions from the backlog become Q<n> questions (the first asked first)",
+        "The plan README has a Source field pointing to the backlog file",
+        "Does not edit the backlog file without consent"
       ]
     },
     {
       "id": 4,
       "name": "resume-draft",
-      "prompt": "Wróćmy do planu tracker-read-only-mode.",
-      "expected_output": "Czyta README z Planning: draft, zadaje pierwsze otwarte pytanie, nie powtarza rozstrzygniętych.",
+      "prompt": "Let's get back to the plan tracker-read-only-mode.",
+      "expected_output": "Reads the README with Planning: draft, asks the first open question, does not repeat settled ones.",
       "files": [
         "docs/plans/tracker-read-only-mode/README.md"
       ],
       "expectations": [
-        "Zadaje pierwsze pytanie z sekcji Otwarte pytania",
-        "Nie pyta ponownie o decyzje zapisane w sekcji Decyzje",
-        "Zachowuje numerację Q<n>"
+        "Asks the first question from the Open questions section",
+        "Does not re-ask decisions recorded in the Decisions section",
+        "Keeps the Q<n> numbering"
       ]
     },
     {
       "id": 5,
       "name": "autonomous",
-      "prompt": "Zaplanuj samodzielnie, bez pytań, migrację logowania z console.log na pino.",
-      "expected_output": "Nie zadaje pytań, rozstrzyga wg rekomendacji, zapisuje decyzje oznaczone autonomicznie, kończy z Planning: complete.",
+      "prompt": "Plan on your own, no questions, the migration of logging from console.log to pino.",
+      "expected_output": "Asks no questions, decides by recommendation, records decisions marked autonomous, ends with Planning: complete.",
       "files": [],
       "expectations": [
-        "Nie używa AskUserQuestion",
-        "Decyzje w README oznaczone jako autonomiczne",
-        "Planning: complete na końcu"
+        "Does not use AskUserQuestion",
+        "Decisions in the README are marked as autonomous",
+        "Planning: complete at the end"
       ]
     },
     {
       "id": 6,
       "name": "query-status",
-      "prompt": "Czy mogę już zacząć następny etap planu?",
-      "expected_output": "Tylko odczyt README; odpowiedź tak/nie wg reguły bramki, cytuje statusy dosłownie.",
+      "prompt": "Can I start the next stage of the plan yet?",
+      "expected_output": "Read-only on the README; a yes/no answer per the gate rule, quoting statuses verbatim.",
       "files": [
         "docs/plans/tracker-read-only-mode/README.md"
       ],
       "expectations": [
-        "Nie edytuje plików ani nie uruchamia testów/agentów",
-        "Odpowiada tak tylko gdy Planning: complete i poprzedni etap done",
-        "Cytuje status dosłownie z README"
+        "Does not edit files or run tests/agents",
+        "Answers yes only when Planning: complete and the previous stage is done",
+        "Quotes the status verbatim from the README"
       ]
     }
   ]

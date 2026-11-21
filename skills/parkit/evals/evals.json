@@ -4,75 +4,80 @@
     {
       "id": 1,
       "name": "park-from-conversation",
-      "prompt": "(Po rozmowie o wolnym dashboardzie raportów i pomyśle cache z TTL 5 min) Odłóż to na później.",
-      "expected_output": "Pokazuje podgląd w tabeli, po zatwierdzeniu tworzy jeden plik w <korzeń repo>/docs/backlog/ w zadanym formacie.",
+      "prompt": "(After a conversation about a slow reports dashboard and an idea of a 5-minute TTL cache) Park this for later.",
+      "expected_output": "Shows a table preview, and after approval creates one file in <repo root>/docs/backlog/ in the given format.",
       "files": [],
       "expectations": [
-        "Przed zapisem pokazuje tabelę podglądu z katalogiem docelowym i czeka na zatwierdzenie",
-        "Plik powstaje w <korzeń repo>/docs/backlog/, nie w bieżącym podkatalogu",
-        "Nazwa pliku: angielski, kebab-case, max 50 znaków",
-        "Frontmatter ma title, type (optimization), date z kontekstu lub date +%F, source",
-        "Treść tylko z rozmowy; sekcje bez pokrycia pominięte; Historia ostatnia z wpisem utworzenie",
-        "Brak operacji git"
+        "Before saving shows the preview table with the target directory and waits for approval",
+        "The file is created in <repo root>/docs/backlog/, not in the current subdirectory",
+        "File name: English, kebab-case, max 50 characters",
+        "Frontmatter has title, type (optimization), date from context or date +%F, source",
+        "Content only from the conversation; sections without coverage omitted; History last with a created entry",
+        "No git operations"
       ]
     },
     {
       "id": 2,
       "name": "nothing-to-park",
-      "prompt": "(Świeża rozmowa bez ustaleń) /_parkit",
-      "expected_output": "Mówi, że nie ma czego odłożyć; nie tworzy plików ani katalogów.",
+      "prompt": "(Fresh conversation with no findings) /_parkit",
+      "expected_output": "Says there is nothing to park; creates no files or directories.",
       "files": [],
       "expectations": [
-        "Informuje, że nic do odłożenia",
-        "Nie tworzy pliku ani katalogu"
+        "Says there is nothing to park",
+        "Creates no file or directory"
       ]
     },
     {
       "id": 3,
       "name": "dedup",
-      "prompt": "(Po rozmowie o cache dla raportów, Redis jako decyzja) Odłóż to.",
-      "expected_output": "Wykrywa istniejący docs/backlog/cache-for-report-queries.md, pyta: dopisać czy nowy plik; dopisanie wpina treść w sekcje i dodaje wpis w Historia.",
-      "files": ["docs/backlog/cache-for-report-queries.md"],
+      "prompt": "(After a conversation about caching for reports, Redis as the decision) Park this.",
+      "expected_output": "Detects the existing docs/backlog/cache-for-report-queries.md, asks: append or new file; appending fits the content into sections and adds a History entry.",
+      "files": [
+        "docs/backlog/cache-for-report-queries.md"
+      ],
       "expectations": [
-        "Przed podglądem wskazuje podobny istniejący plik i pyta: dopisać czy nowy",
-        "Po wyborze dopisania nie powstaje nowy plik",
-        "Dopisana treść bez powtórzeń, w pasujących sekcjach",
-        "Nowa linia w Historia z datą"
+        "Before the preview points to the similar existing file and asks: append or new",
+        "After choosing append no new file is created",
+        "Appended content without repetition, in matching sections",
+        "A new History line with a date"
       ]
     },
     {
       "id": 4,
       "name": "sanitization",
-      "prompt": "(Rozmowa zawiera nazwisko klienta, e-mail, telefon, token API i wewnętrzny host) Odłóż pomysł integracji.",
-      "expected_output": "Plik bez danych wrażliwych; podgląd zaznacza, co zanonimizowano.",
+      "prompt": "(The conversation contains a client's surname, e-mail, phone, an API token, and an internal host) Park the integration idea.",
+      "expected_output": "A file without sensitive data; the preview marks what was anonymised.",
       "files": [],
       "expectations": [
-        "Grep nazwiska, e-maila, telefonu, tokenu i hosta po zapisanym pliku daje 0 trafień",
-        "Dotyczy też nazwy pliku, source i tags",
-        "Podgląd mówi, co zanonimizowano"
+        "Grepping the saved file for the surname, e-mail, phone, token, and host gives 0 hits",
+        "Applies to the file name, source, and tags too",
+        "The preview says what was anonymised"
       ]
     },
     {
       "id": 5,
       "name": "review-and-return",
-      "prompt": "Co mam odłożone? A potem: wróćmy do tego o cache.",
-      "expected_output": "Tabela pozycji, najnowsze na górze, pozycja z wpisem przeniesienia oznaczona → plan <slug>; powrót streszcza plik bez jego zmiany.",
-      "files": ["docs/backlog/cache-for-report-queries.md", "docs/backlog/export-to-csv.md"],
+      "prompt": "What do I have parked? And then: let's go back to the cache one.",
+      "expected_output": "A table of items, newest on top, an item with a moved entry marked → plan <slug>; return summarises the file without changing it.",
+      "files": [
+        "docs/backlog/cache-for-report-queries.md",
+        "docs/backlog/export-to-csv.md"
+      ],
       "expectations": [
-        "Tabela: data, type, tytuł, plik; najnowsze na górze",
-        "Pozycja z „przeniesione do planu <slug>” w Historia ma dopisek → plan <slug>",
-        "Powrót: krótkie streszczenie, plik niezmieniony (porównanie sumy kontrolnej)"
+        "Table: date, type, title, file; newest on top",
+        "An item with \"moved to plan <slug>\" in History has the suffix → plan <slug>",
+        "Return: a short summary, file unchanged (checksum comparison)"
       ]
     },
     {
       "id": 6,
       "name": "review-empty",
-      "prompt": "Pokaż odłożone pomysły.",
-      "expected_output": "Brak docs/backlog/ → „nic nie odłożono”, nic nie tworzy.",
+      "prompt": "Show the parked ideas.",
+      "expected_output": "No docs/backlog/ → \"nothing parked\", creates nothing.",
       "files": [],
       "expectations": [
-        "Odpowiada, że nic nie odłożono",
-        "Katalog docs/backlog/ nadal nie istnieje"
+        "Answers that nothing is parked",
+        "The docs/backlog/ directory still does not exist"
       ]
     }
   ]

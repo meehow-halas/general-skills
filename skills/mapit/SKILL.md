@@ -1,110 +1,110 @@
 ---
 name: mapit
-description: Rozpisuje plan dowolnego przedsięwzięcia (kod, migracja, przeprowadzka, trening, wydarzenie) na etapy w plikach docs/plans/<slug>/, pytając po jednym pytaniu z rekomendacją; potem wykonuje etapy z bramką i weryfikacją oraz odpowiada na pytania o stan planu. Może startować od pomysłu odłożonego przez _parkit (docs/backlog/). Map it out, zaplanuj, rozpisz na etapy, co dalej w planie. NIE używaj do ticketów w Jira/ADO ani do zwykłej listy TODO w rozmowie.
+description: Breaks any undertaking (code, migration, move, training, event) into stages in files under docs/plans/<slug>/, asking one question at a time with a recommendation; then executes the stages with a gate and verification and answers questions about plan status. Can start from an idea parked by _parkit (docs/backlog/). Use for map it out, plan this, break it into stages, what's next in the plan, in any language. Do NOT use for Jira/ADO tickets or a plain TODO list in the conversation.
 ---
 
 # _mapit
 
-Plan w etapach, w plikach, z możliwością przerwania i wznowienia. Trzy fazy: **plan**, **wykonanie**, **zapytanie**. Rozpoznawaj je z intencji. Rozmowa w języku użytkownika, zwięźle. Treść plików w języku rozmowy, chyba że reguły projektu każą inaczej. Nazwy plików: angielski, kebab-case.
+A plan in stages, in files, with the ability to pause and resume. Three phases: **plan**, **execution**, **query**. Recognise them from intent. The skill is language-agnostic: talk to the user in their language, concisely, and understand their intent in any language. File content is in the conversation language unless project rules say otherwise. File names: English, kebab-case. Structure (headings, field names, statuses, `Planning: draft|complete`) is fixed English, used verbatim in every language.
 
-**Tryb:** domyślnie `interactive`. Gdy użytkownik prosi o pracę samodzielną (`samodzielnie`, `bez pytań`) — `autonomous`: nie pytaj, wybieraj rekomendację i zapisuj decyzję z dopiskiem `autonomicznie`. Wyjątek: rzeczy wymagające zgody użytkownika (patrz Zasady) i fakty, które zna tylko on.
+**Mode:** `interactive` by default. When the user asks for independent work (e.g. "on your own", "no questions", in any language), use `autonomous`: don't ask, pick the recommendation and record the decision marked `(autonomous)`. Exceptions: things that need the user's consent (see Rules) and facts only they know.
 
-## Lokalizacja
+## Location
 
-- Reguły projektu (`CLAUDE.md`/`AGENTS.md`) wskazują katalog planów → użyj go.
-- Inaczej w repo: `<korzeń repo>/docs/plans/<slug>/`, archiwum `docs/plans/archive/<slug>/`. Repo = to, którego plan dotyczy (wskazane albo repo pliku backlogu), nie zawsze katalog roboczy.
-- Poza repo → zapytaj; rekomendacja `./plans/<slug>/`.
+- Project rules (`CLAUDE.md`/`AGENTS.md`) name a plans directory → use it.
+- Otherwise in a repo: `<repo root>/docs/plans/<slug>/`, archive `docs/plans/archive/<slug>/`. Repo = the one the plan concerns (named, or the repo of the backlog file), not always the working directory.
+- Outside a repo → ask; recommend `./plans/<slug>/`.
 
-## Faza 1 — Plan
+## Phase 1: Plan
 
 ### Start
 
-- Katalog planu istnieje → czytaj `README.md` i kontynuuj. `Planning: draft` → zadaj pierwsze otwarte pytanie; nie pytaj ponownie o rozstrzygnięte. Zmianę zapisanej treści pokaż jako diff przed zapisem.
-- Start od pomysłu z `docs/backlog/` (plik `_parkit`) → użyj go jako wejścia: cel, proponowane rozwiązanie, kryteria, otwarte pytania (do kolejki pytań), powiązane pliki (sprawdź aktualność). W README wpisz `Źródło: <ścieżka>`.
-- W repo z kodem przeczytaj reguły projektu i istotny kod (Grep/Glob najpierw). Reguły projektu wygrywają z domysłami.
-- `README.md` utwórz z `Planning: draft` po pierwszej odpowiedzi i aktualizuj po każdej — przerwana sesja nic nie traci.
+- Plan directory exists → read `README.md` and continue. `Planning: draft` → ask the first open question; don't re-ask what's settled. Show a change to saved content as a diff before writing.
+- Start from an idea in `docs/backlog/` (a `_parkit` file) → use it as input: goal, proposed solution, criteria, open questions (into the question queue), related files (check they are current). In the README write `Source: <path>`.
+- In a code repo read the project rules and the relevant code (Grep/Glob first). Project rules beat guesses.
+- Create `README.md` with `Planning: draft` after the first answer and update it after each one: an interrupted session loses nothing.
 
-### Pytania
+### Questions
 
-- **Jedno pytanie na wiadomość**, `AskUserQuestion`, 2–4 opcje, rekomendowana **pierwsza** z `(Recommended)` i powodem w opisie.
-- Każda decyzja dostaje stały numer `Q<n>` i trafia do „Decyzje” w README.
-- Pytaj tylko o to, co zmienia plan. Pomijaj to, co rozstrzyga kontekst. Nie wymyślaj faktów o użytkowniku (budżet, terminy, ograniczenia) — zapytaj albo zapisz jako założenie.
-- Koniec pytań, gdy jasne są cel, zakres, kryteria i podział na etapy. Podsumuj decyzje jedną krótką listą.
+- **One question per message**, `AskUserQuestion`, 2–4 options, the recommended one **first** with `(Recommended)` and the reason in its description.
+- Every decision gets a fixed number `Q<n>` and goes into "Decisions" in the README.
+- Ask only what changes the plan. Skip what context settles. Don't invent facts about the user (budget, deadlines, constraints): ask or record as an assumption.
+- Questions end when the goal, scope, criteria, and split into stages are clear. Summarise the decisions in one short list.
 
-### Etapy
+### Stages
 
-- Domyślnie jeden etap. Dziel tylko przy realnej zależności albo sprawdzalnym stanie pośrednim (w planach rozłożonych w czasie: naturalne fazy). Podział potwierdź jednym pytaniem.
-- Numeracja `01`, `02`… w kolejności wykonania. **Numerów nie zmieniaj**; etap dodany później dostaje kolejny wolny numer.
-- Każdy etap ma wykonawcę: `agent` (Claude), `user` (człowiek) albo `mixed`.
+- One stage by default. Split only on a real dependency or a verifiable intermediate state (in plans spread over time: natural phases). Confirm the split with one question.
+- Number `01`, `02`… in execution order. **Never renumber**; a stage added later gets the next free number.
+- Every stage has an executor: `agent` (Claude), `user` (a human), or `mixed`.
 
-### Pliki
+### Files
 
-`README.md` — indeks i stan:
+`README.md`: index and state:
 
 ```markdown
-# <Tytuł>
-Cel: <1–3 zdania>
+# <Title>
+Goal: <1–3 sentences>
 Planning: draft | complete
-Źródło: <zdanie z rozmowy | docs/backlog/<plik>.md>
+Source: <sentence from the conversation | docs/backlog/<file>.md>
 
-## Otwarte pytania
-## Etapy
-| NN | Etap | Wykonawca | Status | Weryfikacja |
-## Decyzje
-- Q1: <decyzja> (<powód>)
-## Założenia
-- <założenie> (pomiń sekcję, gdy brak)
+## Open questions
+## Stages
+| NN | Stage | Executor | Status | Verification |
+## Decisions
+- Q1: <decision> (<reason>)
+## Assumptions
+- <assumption> (omit the section when none)
 ```
 
-Status etapu: `planned` / `in progress` / `gaps` / `done`.
+Stage status: `planned` / `in progress` / `gaps` / `done`.
 
-`NN-<etap>.md` — spec:
-- Cel (1–3 zdania); Zakres w / poza (jawnie); Decyzje (`Q<n>`)
-- Plan szczegółowy — treść merytoryczna, o którą prosił użytkownik (rozpiska, harmonogram, lista), jeśli etap jej wymaga
-- Kryteria akceptacji — obserwowalne, jako checkboxy `- [ ]` (w kodzie: testy, kontrakty, pliki; poza kodem: sprawdzalny fakt)
-- Weryfikacja — w kodzie testy do uruchomienia (najwęższe najpierw); poza kodem: jak użytkownik potwierdzi
-- Pliki / materiały (ścieżki); nota o wersji/CHANGELOG, jeśli wymagają tego reguły projektu
-- Zależy od: poprzedni etap (`done`)
+`NN-<stage>.md`: spec:
+- Goal (1–3 sentences); Scope in / out (explicit); Decisions (`Q<n>`)
+- Detailed plan: the substantive content the user asked for (breakdown, schedule, list), if the stage needs it
+- Acceptance criteria: observable, as checkboxes `- [ ]` (in code: tests, contracts, files; outside code: a checkable fact)
+- Verification: in code the tests to run (narrowest first); outside code: how the user will confirm
+- Files / materials (paths); a version/CHANGELOG note if project rules require it
+- Depends on: previous stage (`done`)
 
-`NN-<etap>.brief.md` — tylko dla `agent`/`mixed`: samodzielny prompt dla wykonawcy: cel, potrzebny kontekst, ścieżki, pełna treść specu (skopiowana), czego nie zmieniać, ograniczenia (bez commitów, bez `.env`, bez nowych zależności i akcji na zewnątrz bez zgody), definicja ukończenia.
+`NN-<stage>.brief.md`: only for `agent`/`mixed`: a self-contained prompt for the executor: goal, needed context, paths, the full spec text (copied), what not to change, constraints (no commits, no `.env`, no new dependencies or external actions without consent), definition of done.
 
-Pisz tylko te pliki.
+Write only these files.
 
-### Koniec planowania
+### End of planning
 
-Pokaż listę plików i tabelę etapów. Zapytaj o akceptację (`autonomous`: pomiń). Potem `Planning: complete`, usuń sekcję „Otwarte pytania” i zaproponuj start `01`. Nie zaczynaj bez zgody, chyba że użytkownik prosił o wykonanie.
+Show the file list and the stage table. Ask for approval (`autonomous`: skip). Then set `Planning: complete`, remove the "Open questions" section, and offer to start `01`. Don't start without consent unless the user asked for execution.
 
-## Faza 2 — Wykonanie etapu
+## Phase 2: Executing a stage
 
-0. Bramka: `Planning: complete` i poprzedni etap `done`. Inaczej `BLOCKED: <powód> — <co zrobić>`.
+0. Gate: `Planning: complete` and the previous stage `done`. Otherwise `BLOCKED: <reason>. <what to do>`.
 1. Status `in progress`.
-2. Realizacja:
-   - `agent` — wykonaj z briefu i specu, wg reguł projektu.
-   - `user` — pokaż plan szczegółowy i kryteria jako checklistę; czekaj na zgłoszenia (także w kolejnych sesjach). Każde potwierdzone kryterium od razu odhacz w specu.
-   - `mixed` — obie części, w kolejności wynikającej z zależności.
-   - Pytania w trakcie: jak w fazie 1; decyzję zapisz w specu i README.
-3. Weryfikacja:
-   - Część `agent` — automatycznie po realizacji: jeden `Agent` (`general-purpose`, świeży kontekst) dostaje ścieżki specu i briefu i sprawdza każde kryterium: `PASS` / `GAP` z dowodem (`path:line`, wynik polecenia); nie edytuje plików. Testy ze specu uruchom sam i zacytuj prawdziwy wynik.
-   - Część `user` — kryterium jest `PASS` tylko po wyraźnym potwierdzeniu użytkownika.
-4. Wynik:
-   - wszystko `PASS` → `done`;
-   - `GAP` albo czerwony test → `gaps` i lista luk. Jedno pytanie: naprawić teraz (Recommended) czy dodać nowy etap. Nie rozszerzaj zakresu po cichu.
-   - Kryterium czekające na zgodę użytkownika nie jest luką: etap zostaje `in progress`, dopóki zgody nie ma.
+2. Realisation:
+   - `agent`: execute from the brief and spec, per project rules.
+   - `user`: show the detailed plan and criteria as a checklist; wait for reports (also in later sessions). Tick each confirmed criterion in the spec right away.
+   - `mixed`: both parts, in the order the dependencies dictate.
+   - Questions along the way: as in phase 1; record the decision in the spec and README.
+3. Verification:
+   - `agent` part: automatically after realisation: one `Agent` (`general-purpose`, fresh context) gets the spec and brief paths and checks every criterion: `PASS` / `GAP` with evidence (`path:line`, command output); it edits no files. Run the spec's tests yourself and quote the real result.
+   - `user` part: a criterion is `PASS` only after the user's explicit confirmation.
+4. Result:
+   - all `PASS` → `done`;
+   - `GAP` or a red test → `gaps` and a list of gaps. One question: fix now (Recommended) or add a new stage. Don't widen scope silently.
+   - A criterion awaiting the user's consent is not a gap: the stage stays `in progress` until consent is given.
 
-## Zapytanie (w dowolnym momencie)
+## Query (any time)
 
-Tylko odczyt: który etap trwa, co dalej, czy można zacząć, luki, otwarte pytania.
-- Jeden plan → użyj go. Kilka → pytanie o wszystkie = tabela przeglądowa; o jeden = zapytaj który (rekomendacja: ten z etapem `in progress`). Pomijaj `archive/`.
-- Odpowiadaj z `README.md`; spec czytaj tylko dla etapu, o który pytano. Statusy cytuj dosłownie.
-- „Czy można zacząć następny?” = tak tylko, gdy `Planning: complete`, poprzedni `done`, a następny nie jest `in progress`.
-- Sprzeczność w plikach zgłoś, nie naprawiaj. Bez edycji, testów i agentów.
+Read-only: which stage is running, what's next, whether it can start, gaps, open questions.
+- One plan → use it. Several → a question about all of them = an overview table; about one = ask which (recommendation: the one with a stage `in progress`). Skip `archive/`.
+- Answer from `README.md`; read a spec only for the stage asked about. Quote statuses verbatim.
+- "Can the next one start?" = yes only when `Planning: complete`, the previous is `done`, and the next is not `in progress`.
+- Report a contradiction in the files, don't fix it. No edits, tests, or agents.
 
-## Zasady
+## Rules
 
-- Jedno pytanie na wiadomość. Rekomendacja pierwsza i oznaczona.
-- Nie wymyślaj wymagań. Założenie oznacz jako założenie.
-- **Zgoda przed czynnością:** gdy reguły projektu wymagają zgody (np. podbicie wersji), a także przed zakupem, wysłaniem wiadomości, rezerwacją — zapytaj (`autonomous`: przygotuj, wpisz jako kryterium „zgoda użytkownika” i wykonaj dopiero po zgodzie).
-- Nie zapisuj sekretów ani danych osobowych (nazwiska, telefony, e-maile, numery kont) — zastąp opisem lub placeholderem.
-- Pliki tylko w katalogu planu. Wyjątek za zgodą: jedna linia w „Historia” źródłowego pliku backlogu (`YYYY-MM-DD — przeniesione do planu <slug>`).
-- Gdy wszystkie etapy są `done`, zaproponuj (jedno pytanie) archiwizację: przeniesienie do `archive/<slug>/`, usunięcie `*.brief.md`, poprawę linków; dla planu ze `Źródło` w backlogu — także usunięcie pliku backlogu.
-- Bez commitów, pushy i PR, chyba że użytkownik poprosi. Nie dotykaj `.env`.
+- One question per message. Recommendation first and marked.
+- Don't invent requirements. Mark an assumption as an assumption.
+- **Consent before an action:** when project rules require consent (e.g. a version bump), and before a purchase, sending a message, or a booking, ask (`autonomous`: prepare it, add the criterion "user consent", and act only after consent).
+- Don't write secrets or personal data (names, phones, e-mails, account numbers): replace with a description or placeholder.
+- Files only in the plan directory. Exception with consent: one line in "History" of the source backlog file (`YYYY-MM-DD: moved to plan <slug>`).
+- When all stages are `done`, offer (one question) archiving: move to `archive/<slug>/`, delete `*.brief.md`, fix links; for a plan with a `Source` in the backlog, also delete the backlog file.
+- No commits, pushes, or PRs unless the user asks. Don't touch `.env`.

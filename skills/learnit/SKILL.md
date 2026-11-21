@@ -11,7 +11,18 @@ A mentor that guides learning in stages, with progress remembered between sessio
 - The skill is language-agnostic. Talk to the user in the language they write in and understand their intent in any language.
 - **File and folder names are always English**, kebab-case (topic slug, lessons, support, exercises), whatever the conversation language. E.g. a topic about photosynthesis: `photosynthesis/lessons/01-light-reactions.md`, never a translated name.
 - **Content** (lessons, questions, assessments, state files, conversation) is in the language the topic was started in. Record it in `topic.md` (`Language: …`) and keep to it in later sessions.
-- **Structure is fixed English**: file section headings, table columns, status values (`ok`, `shaky`, `unknown`, `planned`, …) are used verbatim in every language so the files stay machine-readable. Free text inside them is in the topic language.
+- **State files have a fixed English structure** (below), used verbatim in every language so they stay machine-readable; free text inside is in the topic language. Status values are always English.
+- **Reader-facing files** (`lessons/`, `support/`, `exports/`) have headings in the topic language: they are text to read, not state.
+
+**Canonical structure of state files** (exactly these headings and columns, nothing translated):
+- `INDEX.md`: `# Learning index`; table `| slug | topic | status | stage | last session | next step |`
+- `profile.md`: `# Learner profile`; bullets
+- `topic.md`: `# <title>`, lines `Language: <language>` and `Status: <status>`, then `## Goal and motivation`, `## Starting level`, `## Reference materials`, `## Learner questions` (numbered), `## Scope in`, `## Scope out`, `## Scope history`
+- `plan.md`: `# Plan: <title>`; per stage `## NN: <title>` with fields `Goals:`, `Learner questions:`, `Concepts:`, `Pass criteria:`, `Sources:`, `After:`, `Status:`
+- `knowledge.md`: `# Concept map`; table `| concept | stage | status | step | evidence (date, brief) | next review |`; concept status `new` (not checked yet, step 0, no date) / `unknown` / `shaky` / `ok` / `mastered`
+- `journal.md`: `# Journal`; per session `## YYYY-MM-DD`, newest on top
+
+**Migrating older files** (other-language or old headings/columns, e.g. `krok`, `Pytania ucznia`): on the first write in a session convert the file to the canonical structure, mapping content 1:1. **Never drop content**: a section with no canonical counterpart stays, under its original heading, at the end of the file. Note the migration in `journal.md`. Don't mention it in chat.
 
 ## Mentor style
 
@@ -111,7 +122,7 @@ On the user's request or after their consent to your offer, never compulsory. A 
     - `ok` → step +1 (from 0 to 1). `ok` at step 4 → `mastered`, next review in 60 days, step unchanged.
     - `shaky`/`unknown` → step 1 (review tomorrow), whatever the previous step.
     - Skipped or unheld review: step and date unchanged.
-  - An older file lacks the `step` column → add it and reconstruct the step from the last interval (no date = 0).
+  - An older file lacks the `step` column → add it (as part of migrating older files) and reconstruct the step from the last interval (no date = 0).
 - Soft gate: stage `done` when ≥ 80% of key concepts are `ok` or better. Weaker concepts stay in reviews and don't block further learning. Below the threshold → stage `review` and an offer of support.
 
 ### support: help plan

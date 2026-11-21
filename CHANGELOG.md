@@ -22,6 +22,10 @@ Skill versions are independent of the package version. Entries before 0.5.0 / 0.
 
 ### learnit
 
+#### 0.5.1 — 2026-11-21
+
+- Structure rule made explicit: canonical English headings and columns listed per state file (`INDEX`, `profile`, `topic`, `plan`, `knowledge`, `journal`); reader-facing files (`lessons/`, `support/`, `exports/`) use headings in the topic language. Concept status `new` for not-yet-checked concepts. Migration of older files (e.g. Polish headings, `krok`): convert on first write, map content 1:1, never drop content, keep unmapped sections at the end, note it in the journal. Reason: after 0.5.0 Haiku mixed languages in headings and silently dropped a section while converting an older topic.
+
 #### 0.5.0 — 2026-11-21
 
 - Skill content translated to English (`SKILL.md`, `README.md`, `export-readme.md`, `export-tutor-prompt.md`). The skill is language-agnostic: it talks in the user's language and understands intent in any language. Structure stays fixed English across languages (section headings, table columns, status values), free text follows the topic language. `description` rewritten in English and matches learning intent in any language.

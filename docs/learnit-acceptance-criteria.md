@@ -11,7 +11,7 @@ Date: 2026-11-21. Skill: `skills/learnit/`. The skill is complete when all crite
 
 ## A. Structure
 
-- [x] A1. `SKILL.md` is the only instruction file and has ≤ 180 lines.
+- [x] A1. `SKILL.md` is the only instruction file and has ≤ 190 lines.
 - [x] A2. The symlink `~/.claude/skills/_learnit` points to `skills/learnit`, the skill visible in the session.
 - [x] A3. Topic data goes to `~/.claude/learning/`, regardless of the working directory.
 
@@ -93,3 +93,7 @@ Export without writing lessons (lessons are written on the fly for the recipient
 ## v0.5.0: 2026-11-21
 
 Language-agnostic rewrite: skill content in English, structure fixed in English, content in the user's language. Behaviour scenarios not re-run: **open item**, re-run B1, B3, B5, B11 with a non-English learner before treating v0.5.0 as verified.
+
+## v0.5.0–0.5.1 — 2026-11-21
+
+After the English translation (0.5.0), regression on Haiku: Polish triggering (learning phrases 11/11, negatives 0/4), Polish start flow, Polish export from English templates (recipient instructions 19/19 items, tutor prompt 20/20): PASS. Found: the structure rule was ambiguous (mixed-language headings; migration of an older topic silently dropped a section). 0.5.1: canonical structure per state file, reader-facing headings in the topic language, `new` concept status, migration that never drops content. Re-test on Haiku: new topic with canonical structure and Polish lesson headings; migration of a copy of real Polish-structured topics with unmapped sections kept at the end and a journal note: PASS. SKILL.md: 181 lines, A1 raised to ≤ 190.

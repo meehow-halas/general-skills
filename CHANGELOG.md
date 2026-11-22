@@ -2,6 +2,11 @@
 
 Format: Keep a Changelog. Package releases come first; per-skill history (the versions the skills went through before and alongside the package) follows.
 
+## 0.3.0 — 2026-11-22
+
+### Changed
+- learnit: lessons contain only verified content; the `(unverified)` marker is gone. See learnit 0.6.0.
+
 ## 0.2.0 — 2026-11-21
 
 ### Added
@@ -21,6 +26,10 @@ Format: Keep a Changelog. Package releases come first; per-skill history (the ve
 Skill versions are independent of the package version. Entries before 0.5.0 / 0.2.0 were written in Polish and are translated here.
 
 ### learnit
+
+#### 0.6.0 — 2026-11-22
+
+- Verified content only: claims the tutor isn't certain of and anything that can change (versions, fields, limits, prices, names, dates) are checked in documentation or on the web before writing. No "unverified" / "to be checked" markers in lessons; an unconfirmed claim is left out or narrowed, and if essential the learner is told in chat. No web access → no lesson from memory. Sources listed only if checked in the session. Existing lessons with markers are verified and fixed before teaching. Same rule in the export tutor prompt and recipient instructions. Reason: real lessons shipped details marked "to be checked", so learners got possibly wrong material.
 
 #### 0.5.1 — 2026-11-21
 

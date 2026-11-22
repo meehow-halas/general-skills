@@ -42,7 +42,7 @@ A lesson contains:
 - **external sources,** verified, preferably official documentation, each with a short note on what you'll find there,
 - **exercises to do on your own,** ungraded.
 
-I base the content on sources. What I can't verify, I mark explicitly. I don't invent mechanisms.
+I base the content on sources and check everything that may be out of date before writing. What I can't verify doesn't go into the lesson; if it matters, I tell you what I couldn't confirm. I don't invent mechanisms.
 
 After a lesson I want nothing from you. You read when you want and ask what you want. When you write "I've read it", I'll suggest exercises or a short check.
 

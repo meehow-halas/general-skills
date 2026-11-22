@@ -36,7 +36,7 @@ For each stage with a finished lesson: read the lesson, do the exercises, answer
 ### Good to know
 
 - **The pace is yours.** No deadlines. Reviews from the card are a hint, not an obligation.
-- **The quality of lessons written from sketches depends on the assistant.** It's best to use a model with internet access so it can check sources. Claims it hasn't verified should be marked as uncertain.
+- **The quality of lessons written from sketches depends on the assistant.** Use a model with internet access: it must check facts in sources before writing a lesson and must leave out what it couldn't verify.
 - **The answer key** is hidden under a collapsible field. The assistant won't reveal it until you ask.
 - **Something off?** If the assistant starts writing stiffly or asks questions before the lesson, say: "stick to the tutor prompt at the end of the file".
 

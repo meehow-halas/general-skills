@@ -82,7 +82,7 @@ Topic status: `scoping` / `active` / `paused` / `done`. At the start of every se
   - Learner questions: those from `topic.md` the stage answers
   - Concepts: list (same names as in `knowledge.md`)
   - Pass criteria: which concepts are key
-  - Supplementary sources (optional: documentation, books, articles): verify title, author, edition, and link on the web; mark what you can't verify `(unverified)`
+  - Supplementary sources (optional: documentation, books, articles): verify title, author, edition, and link on the web; list only what you verified, drop the rest
   - Status: `planned` / `in progress` / `review` / `done`
 - Show the plan, ask for approval. Then set topic status `active` and add it to `INDEX.md`.
 - After approval **don't start a lesson on your own.** One question: start now with stage 01 (Recommended) / later. "Later" → next step in `INDEX.md` and a short, warm close (how to return: "let's get back to learning"). Write the lesson only after "now".
@@ -98,9 +98,10 @@ Topic status: `scoping` / `active` / `paused` / `done`. At the start of every se
    - Common mistakes and misconceptions
    - Answers to the learner's questions assigned to the stage (with a pointer to the section)
    - Summary: 3–5 sentences
-   - Sources: 2–4 verified external materials (official documentation first), each with one sentence "what you'll find there"
+   - Sources: 2–4 external materials checked on the web in this session (link works, title and content match; official documentation first), each with one sentence "what you'll find there"
    - Check yourself: 2–3 exercises to do alone (ungraded)
-3. **Source-based content.** Verify claims about how tools work, facts, and dates in documentation or on the web and give the source. What you can't verify, mark in the text `(unverified)`; describe model-dependent behaviour as "usually", not as a rule. Don't invent mechanisms.
+3. **Verified content only.** Before writing, check in documentation or on the web every claim you aren't certain of and everything that can change (how tools work, versions, fields, limits, prices, names, numbers, dates, recent events), and give the source. A lesson never contains "unverified", "to be checked", or similar markers. A claim you can't confirm → leave it out or narrow it to what you confirmed; if it's essential to the stage, tell the learner in chat what you couldn't confirm. No web or documentation access → say so and don't write the lesson from memory. Describe model-dependent behaviour as "usually", not as a rule. Don't invent mechanisms.
+   An existing lesson or plan with such markers (older versions allowed them) → verify those claims and fix the file before teaching from it; note it in `journal.md`.
 4. In chat: lesson title, 2–3 sentences on what it covers, the file path, and the full lesson text (to read right away). Then don't ask anything: the learner reads at their own pace and may ask questions (answer them, and add anything important to the lesson). On "read it / done" offer: graded exercises, a stage check, or a break.
 5. The material sets the stage, not the session: a stage can take many sessions. One stage at a time: don't move to the next lesson without a check or the learner's consent.
 6. An answer to a question during learning is also evidence: assess and record it as in check.

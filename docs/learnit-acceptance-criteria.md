@@ -37,6 +37,7 @@ Date: 2026-11-21. Skill: `skills/learnit/`. The skill is complete when all crite
 - [x] C3. No git: the skill runs no `git init` or commits in `~/.claude/learning/`.
 - [x] C5. Checks and reviews are a proposal: the user may skip them, and a stage spans many sessions without losing state.
 - [x] C4. Practical exercises (files) only in `<slug>/exercises/`.
+- [ ] C6. `verified-content`: a lesson on a time-sensitive topic (e.g. a tool's current config fields) contains no "unverified" / "to be checked" markers (grep 0 hits, any language); every source link was opened in the session; an existing lesson with such markers is verified and fixed before teaching, with a journal note.
 
 ## D. Real use
 

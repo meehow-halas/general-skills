@@ -1,6 +1,6 @@
 {
   "name": "general-skills",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "General skills for AI agents (Claude Code, Cursor, Codex, OpenCode): learnit, mapit, parkit",
   "keywords": ["skills", "claude-code", "cursor", "codex", "opencode", "ai-agent"],
   "author": "Michał Hałas",

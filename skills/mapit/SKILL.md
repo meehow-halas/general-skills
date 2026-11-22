@@ -1,6 +1,6 @@
 ---
 name: mapit
-description: Breaks any undertaking (code, migration, move, training, event) into stages in files under docs/plans/<slug>/, asking one question at a time with a recommendation; then executes the stages with a gate and verification and answers questions about plan status. Can start from an idea parked by _parkit (docs/backlog/). Use for map it out, plan this, break it into stages, what's next in the plan, in any language. Do NOT use for Jira/ADO tickets or a plain TODO list in the conversation.
+description: INVOKE when the user asks to plan, map out, or break into stages any undertaking (code, migration, office move, training, event), in any language, or asks what's next in a plan. Saves the plan in docs/plans/, asks one question at a time, then executes the stages with a gate and verification. Can start from an idea parked by _parkit. NOT for Jira/ADO tickets or a plain TODO list in the conversation.
 ---
 
 # _mapit

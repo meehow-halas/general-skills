@@ -98,3 +98,8 @@ Language-agnostic rewrite: skill content in English, structure fixed in English,
 ## v0.5.0–0.5.1 — 2026-11-21
 
 After the English translation (0.5.0), regression on Haiku: Polish triggering (learning phrases 11/11, negatives 0/4), Polish start flow, Polish export from English templates (recipient instructions 19/19 items, tutor prompt 20/20): PASS. Found: the structure rule was ambiguous (mixed-language headings; migration of an older topic silently dropped a section). 0.5.1: canonical structure per state file, reader-facing headings in the topic language, `new` concept status, migration that never drops content. Re-test on Haiku: new topic with canonical structure and Polish lesson headings; migration of a copy of real Polish-structured topics with unmapped sections kept at the end and a journal note: PASS. SKILL.md: 181 lines, A1 raised to ≤ 190.
+
+## v0.6.1 — 2026-11-22
+
+`description` shortened to 816 characters (Agent Skills spec limit 1024). Triggering on Haiku (`claude -p --setting-sources project`, only these skills loaded), old vs new on the same prompts: no regression (learning prompts 6/8 on both, negatives 0/3). Open: "I'd like to understand X" followed by substantive questions is answered directly (0/3), and a learning request pointing at a repository usually starts with Bash (new 1/3). B/C not re-run: the body is unchanged.
+Sonnet (same method, 20 prompts × 2 runs, old vs new): every prompt routed correctly on both, including "I'd like to understand X" with questions, a repository reference, a staged language-learning plan (learnit, not mapit), the method question, export; negatives not invoked. The open items above are Haiku-only.

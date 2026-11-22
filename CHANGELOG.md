@@ -2,6 +2,11 @@
 
 Format: Keep a Changelog. Package releases come first; per-skill history (the versions the skills went through before and alongside the package) follows.
 
+## 0.3.1 — 2026-11-22
+
+### Fixed
+- learnit, mapit: shorter `description` with the trigger front-loaded; learnit now fits the 1024-character limit of the Agent Skills specification. See learnit 0.6.1, mapit 0.2.1.
+
 ## 0.3.0 — 2026-11-22
 
 ### Changed
@@ -26,6 +31,10 @@ Format: Keep a Changelog. Package releases come first; per-skill history (the ve
 Skill versions are independent of the package version. Entries before 0.5.0 / 0.2.0 were written in Polish and are translated here.
 
 ### learnit
+
+#### 0.6.1 — 2026-11-22
+
+- `description` shortened from 1174 to 816 characters (the Agent Skills specification allows 1024; about 90 tokens less in every session's skill listing). Trigger front-loaded ("INVOKE FIRST, before reading files, running tools, or answering… LEARN or UNDERSTAND"), repetitions removed, `<slug>` dropped (angle brackets are rejected by some validators); edge cases and negatives kept. Haiku measurement (`claude -p`, only these skills loaded), old vs new: identical on 14 prompts × 2 runs (learning prompts 6/8: PL/DE phrases, typo, short definition, resume, quiz; negatives 0/3 invoked); new: a learning request pointing at a repository invoked 1/3 (old 0/2). Still missed by both: "I'd like to understand X" followed by questions (answered directly). Re-run on the final file (punctuation kept YAML-safe, no ": " in the plain scalar): learning prompts 13/16 (repository request 1/2), negatives 0/6 invoked. Sonnet, old vs new, 2 runs: all prompts routed correctly on both (20 prompts incl. learnit/mapit/parkit boundary cases such as a staged language-learning plan vs a team training plan, the method question, export; one-line definition not invoked).
 
 #### 0.6.0 — 2026-11-22
 
@@ -97,6 +106,10 @@ Skill versions are independent of the package version. Entries before 0.5.0 / 0.
 - First version: modes start / plan / learn / check / support / expand / status / resume; global data stored locally in `~/.claude/learning/` (no git); material per stage, not per session; checks and reviews on request; concept map with 1/3/7/21-day reviews; soft 80% gate; learner profile shared across topics; no time limits; domain-agnostic.
 
 ### mapit
+
+#### 0.2.1 — 2026-11-22
+
+- `description` shortened from 485 to 401 characters, trigger front-loaded ("INVOKE when the user asks to plan, map out, or break into stages…"), `<slug>` dropped. Haiku measurement: "plan this… stages" 3/3, "what's next in the plan" 3/3, unchanged from the old description; a request to break an office move into stages is usually answered directly (new 1/5, old 0/2). Sonnet: all mapit prompts invoked on old and new (office move 2/2).
 
 #### 0.2.0 — 2026-11-21
 

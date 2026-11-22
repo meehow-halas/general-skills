@@ -17,27 +17,15 @@ Parks ideas from a conversation in `docs/backlog/` as `.md` files; review, revis
 
 Requires Node ≥ 18. Installs into detected harnesses by default.
 
-### With npx
+Directly from GitHub, no clone needed:
 
 ```bash
 npx github:meehow-halas/general-skills install
 ```
 
-### From GitHub (clone)
-
-```bash
-git clone https://github.com/meehow-halas/general-skills.git
-```
-
-```bash
-cd general-skills && node bin/install.mjs install
-```
+Run with `--dry-run` first to see the plan without writing anything.
 
 ## Options
-
-```bash
-npx github:meehow-halas/general-skills install --harness claude --skills learnit,mapit --dry-run
-```
 
 | Option | Meaning |
 |---|---|
@@ -49,6 +37,17 @@ npx github:meehow-halas/general-skills install --harness claude --skills learnit
 | `--force` | overwrite unmanaged dirs (backup `*.bak`) |
 
 Other commands: `update`, `uninstall`, `list`.
+
+Examples:
+
+```bash
+npx github:meehow-halas/general-skills install --dry-run
+npx github:meehow-halas/general-skills install --harness claude,codex --skills learnit,mapit
+npx github:meehow-halas/general-skills install --prefix my_
+npx github:meehow-halas/general-skills update
+npx github:meehow-halas/general-skills list
+npx github:meehow-halas/general-skills uninstall --harness cursor
+```
 
 ## License
 

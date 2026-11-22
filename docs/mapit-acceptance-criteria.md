@@ -55,3 +55,8 @@ Implemented the backlog item `mapit-readme-template-gaps` (v0.1.1): an "Assumpti
 ## Language-agnostic rewrite: 2026-11-21 (v0.2.0)
 
 Skill content translated to English; structure fixed in English, content follows the conversation language. B/C not re-run. The line limit in A1 is unchanged (SKILL.md ≈ 110 lines).
+
+## v0.2.1 — 2026-11-22
+
+`description` shortened to 401 characters, trigger front-loaded. Triggering on Haiku, old vs new: "plan this… stages" and "what's next in the plan" invoked on both; a request to break an office move into stages mostly answered directly (new 1/5, old 0/2). B/C not re-run: the body is unchanged.
+Sonnet, old vs new: all mapit prompts invoked (office move 2/2, team training plan 2/2), a language-learning plan went to learnit.

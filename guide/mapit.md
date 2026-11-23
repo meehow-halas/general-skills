@@ -19,7 +19,7 @@ Plans any undertaking (code, migration, move, training, event) in stages, in fil
 - `NN-<stage>.md`: spec with acceptance criteria
 - `NN-<stage>.brief.md`: prompt for the executing agent
 
-Finished plans go to `docs/plans/archive/<slug>/`. Stage statuses: `planned`, `in progress`, `gaps`, `done`.
+Finished plans go to `docs/plans/archive/<slug>/`: offered when all stages are `done`, and done on request whenever you say you're finished with the plan (any wording). Stage statuses: `planned`, `in progress`, `gaps`, `done`.
 
 ## More
 

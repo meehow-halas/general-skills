@@ -2,6 +2,11 @@
 
 Format: Keep a Changelog. Package releases come first; per-skill history (the versions the skills went through before and alongside the package) follows.
 
+## 0.3.2 — 2026-11-23
+
+### Fixed
+- mapit: archiving also reacts to the user's intent to close a plan ("close the plan", in any wording or language), not only to the end-of-plan offer. See mapit 0.2.2.
+
 ## 0.3.1 — 2026-11-22
 
 ### Fixed
@@ -106,6 +111,10 @@ Skill versions are independent of the package version. Entries before 0.5.0 / 0.
 - First version: modes start / plan / learn / check / support / expand / status / resume; global data stored locally in `~/.claude/learning/` (no git); material per stage, not per session; checks and reviews on request; concept map with 1/3/7/21-day reviews; soft 80% gate; learner profile shared across topics; no time limits; domain-agnostic.
 
 ### mapit
+
+#### 0.2.2 — 2026-11-23
+
+- Archiving is triggered by intent to close the plan (close, finish, wrap up, in any language), not only by the offer after the last stage is `done`. The request counts as consent when all stages are `done`; with unfinished stages one question (archive anyway with a note, or keep open).
 
 #### 0.2.1 — 2026-11-22
 
